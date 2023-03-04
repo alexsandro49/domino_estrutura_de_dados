@@ -12,10 +12,11 @@ namespace domino_estrutura_de_dados
             public byte ladoB = 0;
             public string valores;
 
-            public Peca(byte ladoA, byte ladoB)
+            public Peca(string x)
             {
-                this.ladoA = ladoA;
-                this.ladoB = ladoB;
+
+                this.ladoA = Convert.ToByte(x.Substring(0, 1));
+                this.ladoB = Convert.ToByte(x.Substring(1, 1));
                 this.valores = ($"| {ladoA} | {ladoB} |");
             }
         }
@@ -66,7 +67,7 @@ namespace domino_estrutura_de_dados
                 Linhas(x.Count);
                 Console.WriteLine();
             }
-            public void Mostrar()
+            public void PecasNaMesa()
             {
                 LinhaPecas(linha21);
 
@@ -91,21 +92,43 @@ namespace domino_estrutura_de_dados
         static List<string> pecas = new List<string>() { "00", "01", "11", "02", "12", "22", "03", "13", "23", "33", "04", "14", "24", "34", "44", "05", "15", "25", "35", "45", "55", "06", "16", "26", "36", "46", "56", "66" };
         static void Main(string[] args)
         {
-            // PecasJogadas mesa = new PecasJogadas();
+            PecasJogadas mesa = new PecasJogadas();
             // Peca peca1 = new Peca(2, 2);
             // mesa.Adicionar(peca1);
 
             //gerar os jogos
             List<string> j1 = NovoJogoP();
-            j1.ForEach(item => Console.WriteLine(item));
-            Console.WriteLine();
-
             List<string> j2 = NovoJogoC(j1);
-            j2.ForEach(item => Console.WriteLine(item));
-            Console.WriteLine();
 
+            // for (int i = 0; i < 7; i++)
+            // {
+            //     Peca peca = new Peca(j1[i]);
+            //     mesa.Adicionar(peca);
+            // }
 
+            // mesa.Mostrar();
 
+            while (true) {
+                Console.WriteLine("1 - OLHAR PEÇAS NA MESA");
+                Console.WriteLine("2 - SUAS PEÇAS");
+                while (true) {
+                    Console.Write(": ");
+                    string opc = Console.ReadLine();
+
+                    if (opc == "1") {
+                        //mesa.PecasNaMesa();
+                        break;
+                    }
+                    else if (opc == "2") {
+                        //mesa.PecasJogador();
+                        break;
+                    }
+                    else {
+                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
+                    }
+                }
+            }
+            
         }
 
         public static List<string> NovoJogoP()
