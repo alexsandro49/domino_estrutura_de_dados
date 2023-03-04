@@ -28,7 +28,15 @@ namespace domino_estrutura_de_dados
             public List<string> linha22 = new List<string>();
             public List<string> linha23 = new List<string>();
             public List<string> linha24 = new List<string>();
+            public List<string> linhaP = new List<string>();
 
+            public void AtualizarJogoP(Peca peca)
+            {
+                if (linhaP.Count < 7)
+                {
+                    linhaP.Add($"{peca.valores}");
+                }
+            }
             public void Adicionar(Peca peca)
             {
                 if (linha21.Count < 7)
@@ -67,6 +75,11 @@ namespace domino_estrutura_de_dados
                 Linhas(x.Count);
                 Console.WriteLine();
             }
+
+            public void PecasJogador()
+            {
+                LinhaPecas(linhaP);
+            }
             public void PecasNaMesa()
             {
                 LinhaPecas(linha21);
@@ -97,38 +110,59 @@ namespace domino_estrutura_de_dados
             // mesa.Adicionar(peca1);
 
             //gerar os jogos
-            List<string> j1 = NovoJogoP();
-            List<string> j2 = NovoJogoC(j1);
+            List<string> jogoP = NovoJogoP();
+            List<string> jogoC = NovoJogoC(jogoP);
 
-            // for (int i = 0; i < 7; i++)
-            // {
-            //     Peca peca = new Peca(j1[i]);
-            //     mesa.Adicionar(peca);
-            // }
+            for (int i = 0; i < jogoC.Count; i++)
+            {
+                Peca peca = new Peca(jogoC[i]);
+                mesa.Adicionar(peca);
+            }
+
+
+            for (int i = 0; i < jogoP.Count; i++)
+            {
+                Peca peca = new Peca(jogoP[i]);
+                mesa.AtualizarJogoP(peca);
+            }
+
 
             // mesa.Mostrar();
 
-            while (true) {
+            while (true)
+            {
                 Console.WriteLine("1 - OLHAR PEÇAS NA MESA");
                 Console.WriteLine("2 - SUAS PEÇAS");
-                while (true) {
+                Console.WriteLine("3 - JOGAR UMA PEÇA");
+                while (true)
+                {
                     Console.Write(": ");
                     string opc = Console.ReadLine();
 
-                    if (opc == "1") {
-                        //mesa.PecasNaMesa();
+                    if (opc == "1")
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("PEÇAS NA MESA:");
+                        mesa.PecasNaMesa();
+                        Console.WriteLine();
                         break;
                     }
-                    else if (opc == "2") {
-                        //mesa.PecasJogador();
+                    else if (opc == "2")
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("PEÇAS DO JOGADOR:");
+                        mesa.PecasJogador();
+                        Console.WriteLine("    1         2         3         4         5         6         7");
+                        Console.WriteLine();
                         break;
                     }
-                    else {
+                    else
+                    {
                         Console.WriteLine("Opção inválida. Por favor, tente novamente!");
                     }
                 }
             }
-            
+
         }
 
         public static List<string> NovoJogoP()
@@ -156,7 +190,7 @@ namespace domino_estrutura_de_dados
                 if (!jogoP.Contains(peca) && !jogoC.Contains(peca))
                 {
                     jogoC.Add(peca);
-                }     
+                }
             }
             return jogoC;
         }
