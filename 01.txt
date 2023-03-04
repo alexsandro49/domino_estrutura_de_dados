@@ -1,0 +1,100 @@
+            ConsoleColor corDetalhes, corPeca;
+            string opcCorPeca, opcCorNumeros;
+
+            Console.WriteLine("Escolha a cor das peças: ");
+            Console.WriteLine("1 - BRANCO");
+            Console.WriteLine("2 - PRETO");
+            while (true)
+            {
+                Console.Write(": ");
+                opcCorPeca = Console.ReadLine().Trim();
+                if (opcCorPeca == "1")
+                {
+                    corPeca = ConsoleColor.White;
+                    break;
+                }
+                else if (opcCorPeca == "2")
+                {
+                    corPeca = ConsoleColor.Black;
+                    break;
+                }
+
+                else
+                {
+                    Console.WriteLine("Opção inválida! Por favor, tente novamente.");
+                }
+            }
+
+
+            Console.WriteLine("Escolha a cor dos números: ");
+            Console.WriteLine("1 - VERMELHO");
+            Console.WriteLine("2 - AZUL");
+            Console.WriteLine("3 - AMARELO");
+            Console.WriteLine("4 - VERDE");
+            if (opcCorPeca == "1")
+            {
+                Console.WriteLine("5 - PRETO");
+            }
+            else
+            {
+                Console.WriteLine("5 - BRANCO");
+            }
+            while (true)
+            {
+                Console.Write(": ");
+                opcCorNumeros = Console.ReadLine().Trim();
+                if (opcCorNumeros == "1")
+                {
+                    corDetalhes = ConsoleColor.Red;
+                    break;
+                }
+                else if (opcCorNumeros == "2")
+                {
+                    corDetalhes = ConsoleColor.Blue;
+                    break;
+                }
+                else if (opcCorNumeros == "3")
+                {
+                    corDetalhes = ConsoleColor.Yellow;
+                    break;
+                }
+                else if (opcCorNumeros == "4")
+                {
+                    corDetalhes = ConsoleColor.Green;
+                    break;
+                }
+                else if (opcCorNumeros == "5")
+                {
+                    if (opcCorPeca == "1")
+                    {
+                        corDetalhes = ConsoleColor.Black;
+                    }
+                    else
+                    {
+                        corDetalhes = ConsoleColor.White;
+                    }
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Opção inválida! Por favor, tente novamente.");
+                }
+            }
+
+
+            for (int i = 0; i < pecas.Length; i++)
+            {
+                Console.ForegroundColor = corDetalhes;
+                Console.BackgroundColor = corPeca;
+                if (i > 0 && i % 7 == 0)
+                {
+                    Console.WriteLine();
+                }
+
+                Console.Write($"{pecas[i]}");
+                Console.ResetColor();
+                Console.Write(" ");
+            }
+            Console.WriteLine();
+
+            //Console.Clear();
