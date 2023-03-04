@@ -8,42 +8,109 @@ namespace domino_estrutura_de_dados
         static void Main(string[] args)
         {
             Console.WriteLine("");
-            string[] pecas = new string[5];
+            string[] pecas = {"0 | 0", "0 | 1", "1 | 1", "0 | 2", "1 | 2", "2 | 2", "0 | 3", "1 | 3", "2 | 3", "3 | 3", "0 | 4", "1 | 4", "2 | 4", "3 | 4", "4 | 4", "0 | 5", "1 | 5", "2 | 5", "3 | 5", "4 | 5", "5 | 5", "0 | 6", "1 | 6", "2 | 6", "3 | 6", "4 | 6", "5 | 6", "6 | 6"};
 
-            pecas[0] = "0 | 0";
-            pecas[1] = "0 | 1";
-            pecas[2] = "1 | 3";
-            pecas[3] = "3 | 5";
-            pecas[4] = "5 | 5";
+            //Random random = new Random();
+            ConsoleColor corDetalhes, corPeca;
+            string opcCorPeca, opcCorNumeros;
 
-            Random random = new Random();
-            ConsoleColor[] corDetalhes = new ConsoleColor[pecas.Length];
-            ConsoleColor[] corPeca = new ConsoleColor[pecas.Length];
-
-            for (int i = 0; i < pecas.Length; i++)
+            Console.WriteLine("Escolha a cor das peças: ");
+            Console.WriteLine("1 - BRANCO");
+            Console.WriteLine("2 - PRETO");
+            while (true)
             {
-                corDetalhes[i] = (ConsoleColor)random.Next(1, 16);
-                if (i % 2 == 0)
+                Console.Write(": ");
+                opcCorPeca = Console.ReadLine().Trim();
+                if (opcCorPeca == "1")
                 {
-                    corPeca[i] = ConsoleColor.Black;
+                    corPeca = ConsoleColor.White;
+                    break;
+                }
+                else if (opcCorPeca == "2")
+                {
+                    corPeca = ConsoleColor.Black;
+                    break;
+                }
+
+                else
+                {
+                    Console.WriteLine("Opção inválida! Por favor, tente novamente.");
+                }
+            }
+
+
+            Console.WriteLine("Escolha a cor dos números: ");
+            Console.WriteLine("1 - VERMELHO");
+            Console.WriteLine("2 - AZUL");
+            Console.WriteLine("3 - AMARELO");
+            Console.WriteLine("4 - VERDE");
+            if (opcCorPeca == "1")
+            {
+                Console.WriteLine("5 - PRETO");
+            }
+            else
+            {
+                Console.WriteLine("5 - BRANCO");
+            }
+            while (true)
+            {
+                Console.Write(": ");
+                opcCorNumeros = Console.ReadLine().Trim();
+                if (opcCorNumeros == "1")
+                {
+                    corDetalhes = ConsoleColor.Red;
+                    break;
+                }
+                else if (opcCorNumeros == "2")
+                {
+                    corDetalhes = ConsoleColor.Blue;
+                    break;
+                }
+                else if (opcCorNumeros == "3")
+                {
+                    corDetalhes = ConsoleColor.Yellow;
+                    break;
+                }
+                else if (opcCorNumeros == "4")
+                {
+                    corDetalhes = ConsoleColor.Green;
+                    break;
+                }
+                else if (opcCorNumeros == "5")
+                {
+                    if (opcCorPeca == "1")
+                    {
+                        corDetalhes = ConsoleColor.Black;
+                    }
+                    else
+                    {
+                        corDetalhes = ConsoleColor.White;
+                    }
+                    break;
                 }
                 else
                 {
-                    corPeca[i] = ConsoleColor.White;
+                    Console.WriteLine("Opção inválida! Por favor, tente novamente.");
                 }
             }
 
-            for (int i = 0; i < 5; i++)
+
+            for (int i = 0; i < pecas.Length; i++)
             {
-                Console.ForegroundColor = corDetalhes[i];
-                Console.BackgroundColor = corPeca[i];
-                Console.Write($"\u001b[1m{pecas[i]}\u001b[0m");
+                Console.ForegroundColor = corDetalhes;
+                Console.BackgroundColor = corPeca;
+                if (i > 0 && i % 7 == 0)
+                {
+                    Console.WriteLine();
+                }
+
+                Console.Write($"{pecas[i]}");
                 Console.ResetColor();
                 Console.Write(" ");
             }
-
-            Console.ResetColor();
             Console.WriteLine();
+
+            //Console.Clear();
         }
     }
 }
