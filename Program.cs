@@ -21,15 +21,11 @@ namespace domino_estrutura_de_dados
                 mesa.Adicionar(peca);
             }
 
-
             for (int i = 0; i < jogoP.Count; i++)
             {
                 Peca peca = new Peca(jogoP[i]);
-                mesa.AtualizarJogoP(peca);
+                mesa.AtualizarJogo("jogador", peca);
             }
-
-
-            // mesa.Mostrar();
 
             while (true)
             {
@@ -54,9 +50,72 @@ namespace domino_estrutura_de_dados
                         Console.WriteLine();
                         Console.WriteLine("PEÇAS DO JOGADOR:");
                         mesa.PecasJogador();
-                        Console.WriteLine("    1         2         3         4         5         6         7");
+                        Console.Write("    1");
+                        for (byte i = 2; i <= jogoP.Count; i ++)
+                        {
+                            Console.Write($"         {i}");
+                        }
                         Console.WriteLine();
                         break;
+                    }
+                    else if (opc == "3")
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("QUAL PEÇA JOGAR?");
+                        mesa.PecasJogador();
+                        while (true)
+                        {
+                            Console.Write(": ");
+                            opc = Console.ReadLine();
+                            if (opc == "1" && jogoP.Count >= 1)
+                            {
+                                mesa.RemoverPeca("jogador", jogoP[0]);
+                                jogoP.Remove(jogoP[0]);
+                                break;
+                            }
+                            else if (opc == "2" && jogoP.Count >= 1)
+                            {
+                                mesa.RemoverPeca("jogador", jogoP[1]);
+                                jogoP.Remove(jogoP[1]);
+                                break;
+                            }
+                            else if (opc == "3" && jogoP.Count >= 2)
+                            {
+                                mesa.RemoverPeca("jogador", jogoP[2]);
+                                jogoP.Remove(jogoP[2]);
+                                break;
+                            }
+                            else if (opc == "4" && jogoP.Count >= 3)
+                            {
+                                mesa.RemoverPeca("jogador", jogoP[3]);
+                                jogoP.Remove(jogoP[3]);
+                                break;
+                            }
+                            else if (opc == "5" && jogoP.Count >= 4)
+                            {
+                                mesa.RemoverPeca("jogador", jogoP[4]);
+                                jogoP.Remove(jogoP[4]);
+                                break;
+                            }
+                            else if (opc == "6" && jogoP.Count >= 5)
+                            {
+                                mesa.RemoverPeca("jogador", jogoP[5]);
+                                jogoP.Remove(jogoP[5]);
+                                break;
+                            }
+                            else if (opc == "7" && jogoP.Count >= 6)
+                            { 
+                                mesa.RemoverPeca("jogador", jogoP[6]);
+                                jogoP.Remove(jogoP[6]);
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Opção inválida. Por favor, tente novamente!");
+                            }
+                        }
+                        break;
+
                     }
                     else
                     {

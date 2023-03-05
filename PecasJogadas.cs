@@ -5,29 +5,41 @@ namespace domino_estrutura_de_dados
 {
     internal class PecasJogadas
     {
-        public string linha1 = "---------";
-        public List<string> linha21 = new List<string>();
-        public List<string> linha22 = new List<string>();
-        public List<string> linha23 = new List<string>();
-        public List<string> linha24 = new List<string>();
-        public List<string> linhaP = new List<string>();
-        public List<string> linhaC = new List<string>();
+        private string linha1 = "---------";
+        private List<string> linha21 = new List<string>();
+        private List<string> linha22 = new List<string>();
+        private List<string> linha23 = new List<string>();
+        private List<string> linha24 = new List<string>();
+        private List<string> linhaP = new List<string>();
+        private List<string> linhaC = new List<string>();
 
-        public void AtualizarJogoP(Peca peca)
+        public void AtualizarJogo(string jogo, Peca peca)
         {
             if (linhaP.Count < 7)
             {
-                linhaP.Add($"{peca.valores}");
+                if (jogo == "jogador")
+                {
+                    linhaP.Add($"{peca.valores}");
+                }
+                else
+                {
+                    linhaC.Add($"{peca.valores}");
+                }
             }
         }
 
-        public void AtualizarJogoC(Peca peca)
+        public void RemoverPeca(string jogo, string valorPeca)
         {
-            if (linhaC.Count < 7)
+            if (jogo == "jogador")
             {
-                linhaC.Add($"{peca.valores}");
+                linhaP.Remove($"| {valorPeca.Substring(0, 1)} | {valorPeca.Substring(1, 1)} |");
+            }
+            else
+            {
+                linhaC.Remove($"| {valorPeca.Substring(0, 1)} | {valorPeca.Substring(1, 1)} |");
             }
         }
+        
         public void Adicionar(Peca peca)
         {
             if (linha21.Count < 7)
@@ -54,7 +66,6 @@ namespace domino_estrutura_de_dados
             {
                 Console.Write($"{linha1} ");
             }
-
         }
 
         public void LinhaPecas(List<string> x)
@@ -89,7 +100,6 @@ namespace domino_estrutura_de_dados
             {
                 LinhaPecas(linha24);
             }
-
         }
     }
 }

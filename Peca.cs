@@ -5,8 +5,8 @@ namespace domino_estrutura_de_dados
 {
     internal class Peca
     {
-        public byte ladoA = 0;
-        public byte ladoB = 0;
+        private byte ladoA = 0;
+        private byte ladoB = 0;
         public string valores;
 
         public Peca(string x)
