@@ -10,7 +10,7 @@ namespace domino_estrutura_de_dados
         private List<string> linha22 = new List<string>();
         private List<string> linha23 = new List<string>();
         private List<string> linha24 = new List<string>();
-        private List<string> linhaP = new List<string>();
+        public List<string> linhaP = new List<string>();
         private List<string> linhaC = new List<string>();
 
         public void AtualizarJogo(string jogo, Peca peca)
@@ -68,20 +68,40 @@ namespace domino_estrutura_de_dados
             }
         }
 
-        public void LinhaPecas(List<string> x)
+        public void LinhaPecas(List<string> x, sbyte pos = -1)
         {
-            Linhas(x.Count);
+            if (pos == -1)
+            {
+                Linhas(x.Count);
+                Console.WriteLine();
+                x.ForEach(item => Console.Write($"{item} "));
+                Console.WriteLine();
+                Linhas(x.Count);
+                Console.WriteLine();
+
+            }
+            else
+            {
+                Linhas(1);
+                Console.WriteLine();
+                Console.Write($"{x[pos]} ");
+                Console.WriteLine();
+                Linhas(1);
+                Console.WriteLine();
+            }
+        }
+        public string PecaEscolhida(sbyte pos)
+        {
+            LinhaPecas(linhaP, pos);
             Console.WriteLine();
-            x.ForEach(item => Console.Write($"{item} "));
-            Console.WriteLine();
-            Linhas(x.Count);
-            Console.WriteLine();
+            Console.WriteLine("1 - PEÇA NO INÍCIO ");
+            Console.WriteLine("2 - PEÇA NO FINAL");
+            Console.Write(": ");
+            string opc = Console.ReadLine();
+
+            return opc;
         }
 
-        public void PecasJogador()
-        {
-            LinhaPecas(linhaP);
-        }
         public void PecasNaMesa()
         {
             LinhaPecas(linha21);
