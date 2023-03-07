@@ -92,14 +92,14 @@ namespace domino_estrutura_de_dados
         }
         public string PecaEscolhida(sbyte pos)
         {
-            LinhaPecas(linhaP, pos);
+            Console.WriteLine();
+            LinhaPecas(linhaP, (sbyte)(pos - 1));
             Console.WriteLine();
             Console.WriteLine("1 - PEÇA NO INÍCIO ");
             Console.WriteLine("2 - PEÇA NO FINAL");
             Console.Write(": ");
-            string opc = Console.ReadLine();
-
-            return opc;
+            string opc1 = Console.ReadLine();
+            return opc1;
         }
 
         public void PecasNaMesa()

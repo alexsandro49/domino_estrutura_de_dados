@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace domino_estrutura_de_dados
 {
@@ -55,7 +56,7 @@ namespace domino_estrutura_de_dados
                         {
                             Console.Write($"         {i}");
                         }
-                        Console.WriteLine();
+                        Console.WriteLine("\n");
                         break;
                     }
                     else if (opc == "3")
@@ -65,187 +66,33 @@ namespace domino_estrutura_de_dados
                         mesa.LinhaPecas(mesa.linhaP);
                         while (true)
                         {
+                            string[] opcoes = { "1", "2", "3", "4", "5", "6", "7" };
                             Console.Write(": ");
                             opc = Console.ReadLine();
-                            if (opc == "1" && pecasP.Count >= 1)
+                            if (opcoes.Contains(opc) && pecasP.Count >= int.Parse(opc.Substring(0, 1)))
                             {
                                 while (true)
                                 {
-                                    opc = mesa.PecaEscolhida(0);
-                                    if (opc == "1")
+                                    string opc1 = mesa.PecaEscolhida(sbyte.Parse(opc.Substring(0, 1)));
+                                    if (opc1 == "1" || opc1 == "2")
                                     {
-                                        //if (mesa.adicionaInicio) {
+                                        if (opc1 == "1")
+                                        {
+                                            //if (mesa.adicionaInicio) {
+                                        }
+                                        else
+                                        {
+                                            //if (mesa.adicionaFinal) {
+                                        }
                                         //mesa.RemoverPeca("jogador", pecasP[0]);
                                         //pecasP.Remove(pecasP[0]);
                                         break;
                                     }
-                                    else if (opc == "2")
-                                    {
-                                        //if (mesa.adicionaFinal) {
-                                        //mesa.RemoverPeca("jogador", pecasP[0]);
-                                        //pecasP.Remove(pecasP[0]);
-                                        break;
-                                    }
                                     else
                                     {
                                         Console.WriteLine("Opção inválida. Por favor, tente novamente!");
                                     }
-                                }
-                                break;
-                            }
-                            else if (opc == "2" && pecasP.Count >= 1)
-                            {
-                                while (true)
-                                {
-                                    opc = mesa.PecaEscolhida(1);
-                                    if (opc == "1")
-                                    {
-                                        //if (mesa.adicionaInicio) {
-                                        //mesa.RemoverPeca("jogador", pecasP[1]);
-                                        //pecasP.Remove(pecasP[1]);
-                                        break;
-                                    }
-                                    else if (opc == "2")
-                                    {
-                                        //if (mesa.adicionaFinal) {
-                                        //mesa.RemoverPeca("jogador", pecasP[1]);
-                                        //pecasP.Remove(pecasP[1]);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
-                                    }
-                                }
-                                break;
-                            }
-                            else if (opc == "3" && pecasP.Count >= 2)
-                            {
-                                while (true)
-                                {
-                                    opc = mesa.PecaEscolhida(2);
-                                    if (opc == "1")
-                                    {
-                                        //if (mesa.adicionaInicio) {
-                                        //mesa.RemoverPeca("jogador", pecasP[2]);
-                                        //pecasP.Remove(pecasP[2]);
-                                        break;
-                                    }
-                                    else if (opc == "2")
-                                    {
-                                        //if (mesa.adicionaFinal) {
-                                        //mesa.RemoverPeca("jogador", pecasP[2]);
-                                        //pecasP.Remove(pecasP[2]);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
-                                    }
-                                }
-                                break;
-                            }
-                            else if (opc == "4" && pecasP.Count >= 3)
-                            {
-                                while (true)
-                                {
-                                    opc = mesa.PecaEscolhida(3);
-                                    if (opc == "1")
-                                    {
-                                        //if (mesa.adicionaInicio) {
-                                        //mesa.RemoverPeca("jogador", pecasP[3]);
-                                        //pecasP.Remove(pecasP[3]);
-                                        break;
-                                    }
-                                    else if (opc == "2")
-                                    {
-                                        //if (mesa.adicionaFinal) {
-                                        //mesa.RemoverPeca("jogador", pecasP[3]);
-                                        //pecasP.Remove(pecasP[3]);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
-                                    }
-                                }
-                                break;
-                            }
-                            else if (opc == "5" && pecasP.Count >= 4)
-                            {
-                                while (true)
-                                {
-                                    opc = mesa.PecaEscolhida(4);
-                                    if (opc == "1")
-                                    {
-                                        //if (mesa.adicionaInicio) {
-                                        //mesa.RemoverPeca("jogador", pecasP[4]);
-                                        //pecasP.Remove(pecasP[4]);
-                                        break;
-                                    }
-                                    else if (opc == "2")
-                                    {
-                                        //if (mesa.adicionaFinal) {
-                                        //mesa.RemoverPeca("jogador", pecasP[4]);
-                                        //pecasP.Remove(pecasP[4]);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
-                                    }
-                                }
-                                break;
-                            }
-                            else if (opc == "6" && pecasP.Count >= 5)
-                            {
-                                while (true)
-                                {
-                                    opc = mesa.PecaEscolhida(5);
-                                    if (opc == "1")
-                                    {
-                                        //if (mesa.adicionaInicio) {
-                                        //mesa.RemoverPeca("jogador", pecasP[5]);
-                                        //pecasP.Remove(pecasP[5]);
-                                        break;
-                                    }
-                                    else if (opc == "2")
-                                    {
-                                        //if (mesa.adicionaFinal) {
-                                        //mesa.RemoverPeca("jogador", pecasP[5]);
-                                        //pecasP.Remove(pecasP[5]);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
-                                    }
-                                }
-                                break;
-                            }
-                            else if (opc == "7" && pecasP.Count >= 6)
-                            {
-                                while (true)
-                                {
-                                    opc = mesa.PecaEscolhida(6);
-                                    if (opc == "1")
-                                    {
-                                        //if (mesa.adicionaInicio) {
-                                        //mesa.RemoverPeca("jogador", pecasP[6]);
-                                        //pecasP.Remove(pecasP[6]);
-                                        break;
-                                    }
-                                    else if (opc == "2")
-                                    {
-                                        //if (mesa.adicionaFinal) {
-                                        //mesa.RemoverPeca("jogador", pecasP[6]);
-                                        //pecasP.Remove(pecasP[6]);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
-                                    }
+
                                 }
                                 break;
                             }
