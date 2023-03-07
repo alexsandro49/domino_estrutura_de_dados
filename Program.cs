@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace domino_estrutura_de_dados
 {
@@ -15,17 +14,16 @@ namespace domino_estrutura_de_dados
             List<string> pecasP = NovoJogoP();
             List<string> pecasC = NovoJogoC(pecasP);
 
-            for (int i = 0; i < pecasC.Count; i++)
-            {
-                Peca peca = new Peca(pecasC[i]);
-                //mesa.AtualizarJogoC(peca);
-                mesa.Adicionar(peca);
-            }
-
             for (int i = 0; i < pecasP.Count; i++)
             {
                 Peca peca = new Peca(pecasP[i]);
                 mesa.AtualizarJogo("jogador", peca);
+            }
+            
+            for (int i = 0; i < pecasC.Count; i++)
+            {
+                Peca peca = new Peca(pecasC[i]);
+                mesa.Adicionar(peca); //será a função para jogar uma peca
             }
 
             while (true)
@@ -33,6 +31,8 @@ namespace domino_estrutura_de_dados
                 Console.WriteLine("1 - OLHAR PEÇAS NA MESA");
                 Console.WriteLine("2 - SUAS PEÇAS");
                 Console.WriteLine("3 - JOGAR UMA PEÇA");
+                Console.WriteLine("      ------");
+                Console.WriteLine("0 - SAIR DO JOGO");
                 while (true)
                 {
                     Console.Write(": ");
@@ -63,10 +63,11 @@ namespace domino_estrutura_de_dados
                     {
                         Console.WriteLine();
                         Console.WriteLine("QUAL PEÇA JOGAR?");
-                        mesa.LinhaPecas(mesa.linhaP);
+                        string[] opcoes = { "1", "2", "3", "4", "5", "6", "7" };
                         while (true)
                         {
-                            string[] opcoes = { "1", "2", "3", "4", "5", "6", "7" };
+                            bool escolhaCancelada = false;
+                            mesa.LinhaPecas(mesa.linhaP, -1);
                             Console.Write(": ");
                             opc = Console.ReadLine();
                             if (opcoes.Contains(opc) && pecasP.Count >= int.Parse(opc.Substring(0, 1)))
@@ -88,25 +89,39 @@ namespace domino_estrutura_de_dados
                                         //pecasP.Remove(pecasP[0]);
                                         break;
                                     }
+                                    else if (opc1 == "0")
+                                    {
+                                        escolhaCancelada = true;
+                                        break;
+                                    }
                                     else
                                     {
                                         Console.WriteLine("Opção inválida. Por favor, tente novamente!");
                                     }
-
+                                }
+                                if (escolhaCancelada)
+                                {
+                                    continue;
                                 }
                                 break;
                             }
                             else
                             {
-                                Console.WriteLine("Opção inválida. Por favor, tente novamente!");
+                                Console.WriteLine("Opção inválida. Por favor, tente novamente!\n");
                             }
-                        break;
                         }
                         Console.WriteLine();
                     }
+                    else if (opc == "0")
+                    {
+                        Console.WriteLine("Jogo finalizado!");
+                        System.Threading.Thread.Sleep(3000);
+                        Console.Clear();
+                        return;
+                    }
                     else
                     {
-                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
+                        Console.WriteLine("Opção inválida. Por favor, tente novamente!\n");
                     }
                     break;
                 }

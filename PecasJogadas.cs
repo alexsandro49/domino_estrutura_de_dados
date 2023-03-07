@@ -60,11 +60,16 @@ namespace domino_estrutura_de_dados
             }
         }
 
-        public void Linhas(int x)
+        public void Linhas(int x, int y = -1)
         {
-            for (byte i = 0; i < x; i++)
+            for (int i = 0; i < x; i++)
             {
+                if (y > -1 && i == y)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
                 Console.Write($"{linha1} ");
+                Console.ResetColor();
             }
         }
 
@@ -78,15 +83,22 @@ namespace domino_estrutura_de_dados
                 Console.WriteLine();
                 Linhas(x.Count);
                 Console.WriteLine();
-
             }
             else
             {
-                Linhas(1);
+                Linhas(x.Count, pos);
                 Console.WriteLine();
-                Console.Write($"{x[pos]} ");
+                for (int i = 0; i < x.Count; i++)
+                {
+                    if (i == pos)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    Console.Write($"{x[i]} ");
+                    Console.ResetColor();
+                }
                 Console.WriteLine();
-                Linhas(1);
+                Linhas(x.Count, pos);
                 Console.WriteLine();
             }
         }
@@ -97,6 +109,7 @@ namespace domino_estrutura_de_dados
             Console.WriteLine();
             Console.WriteLine("1 - PEÇA NO INÍCIO ");
             Console.WriteLine("2 - PEÇA NO FINAL");
+            Console.WriteLine("0 - CANCELAR");
             Console.Write(": ");
             string opc1 = Console.ReadLine();
             return opc1;
