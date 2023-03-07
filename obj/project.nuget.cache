@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3URnViU0SpyXpeIzYL02qtFbLz24RFJL0wnk2ER5bdKw8U63XHaAnEbft/6CbT4NNQEnyM+vK+GEK4c5TCMOXw==",
+  "dgSpecHash": "XwxMNY9SownF3DAyqvKFam8SxkJ5ZPkgZOSJvVrLTdYUcK6IKfZYvBpmZeOA6cr1/h2qEQVGSPr34q44/JQmzg==",
   "success": true,
   "projectFilePath": "C:\\Users\\pescoco49\\Documents\\GitHub\\domino_estrutura_de_dados\\domino_estrutura_de_dados.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\pescoco49\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.2\\microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
