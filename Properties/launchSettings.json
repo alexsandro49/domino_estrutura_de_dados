@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "domino_estrutura_de_dados": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
