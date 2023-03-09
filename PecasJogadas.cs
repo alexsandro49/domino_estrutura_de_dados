@@ -6,14 +6,12 @@ namespace domino_estrutura_de_dados
     internal class PecasJogadas
     {
         public static Peca cabeca;
-        public static byte tamanho;
 
         public bool Inserir(Peca peca, string pos)
         {
             if (cabeca == null)
             {
                 cabeca = peca;
-                tamanho++;
                 return true;
             }
             else
@@ -30,7 +28,6 @@ namespace domino_estrutura_de_dados
                     if (atual.ladoB == peca.ladoA)
                     {
                         atual.proximo = peca;
-                        tamanho++;
                         return true;
                     }
                     else if (atual.ladoB == peca.ladoB)
@@ -39,7 +36,6 @@ namespace domino_estrutura_de_dados
                         byte temp = peca.ladoB;
                         atual.proximo.ladoB = peca.ladoA;
                         atual.proximo.ladoA = temp;
-                        tamanho++;
                         return true;
                     }
                     else
@@ -57,7 +53,6 @@ namespace domino_estrutura_de_dados
                         temp.ladoA = peca.ladoB;
                         temp.ladoB = temp1;
                         cabeca = temp;
-                        tamanho++;
                         return true;
                     }
                     else if (cabeca.ladoA == peca.ladoB)
@@ -65,7 +60,6 @@ namespace domino_estrutura_de_dados
                         Peca temp = peca;
                         temp.proximo = cabeca;
                         cabeca = temp;
-                        tamanho++;
                         return true;
                     }
                     else

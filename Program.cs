@@ -24,10 +24,14 @@ namespace domino_estrutura_de_dados
                 Peca peca = new Peca(pecasC[i]);
                 mesa.AtualizarJogo("computador", peca);
             }
+            
+            pecasP.Sort();
+            pecasC.Sort();
+            mesa.InicioJogo(pecasP, pecasC);
 
             while (true)
             {
-                Console.WriteLine("1 - OLHAR PEÇAS NA MESA");
+                Console.WriteLine("\n1 - OLHAR PEÇAS NA MESA");
                 Console.WriteLine("2 - SUAS PEÇAS");
                 Console.WriteLine("3 - JOGAR UMA PEÇA");
                 Console.WriteLine("      ------");
@@ -140,7 +144,6 @@ namespace domino_estrutura_de_dados
                     break;
                 }
             }
-
         }
 
         public static List<string> NovoJogoP()

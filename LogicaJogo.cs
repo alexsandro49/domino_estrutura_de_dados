@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
 
 namespace domino_estrutura_de_dados
 {
@@ -14,13 +14,16 @@ namespace domino_estrutura_de_dados
 
         public void AtualizarJogo(string jogo, Peca peca)
         {
-            if (linhaP.Count < 7)
+            if (jogo == "jogador")
             {
-                if (jogo == "jogador")
+                if (linhaP.Count < 7)
                 {
                     linhaP.Add(peca);
                 }
-                else
+            }
+            else
+            {
+                if (linhaC.Count < 7)
                 {
                     linhaC.Add(peca);
                 }
@@ -38,13 +41,13 @@ namespace domino_estrutura_de_dados
                 linhaC.Remove(peca);
             }
         }
-        
+
         public bool JogarPeca(Peca peca, string opcao)
         {
             bool validade = pecasJogadas.Inserir(peca, opcao);
             return validade;
         }
-        
+
         public void Linhas(int x, int y = -1)
         {
             for (int i = 0; i < x; i++)
@@ -86,7 +89,7 @@ namespace domino_estrutura_de_dados
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                     }
-                    Console.Write($"{x[pos]} ");
+                    Console.Write($"{x[i]} ");
                     Console.ResetColor();
                 }
                 Console.WriteLine();
@@ -121,6 +124,161 @@ namespace domino_estrutura_de_dados
         public void PecasNaMesa()
         {
             LinhaPecas(pecasJogadas.Mostrar());
+        }
+
+        public void InicioJogo(List<string> jogoP, List<string> jogoC)
+        {
+            List<string> bombas = new List<string> { "00", "11", "22", "33", "44", "55", "66" };
+            List<string> bombasP = new List<string>();
+            List<string> bombasC = new List<string>();
+
+            foreach (var item in jogoP)
+            {
+                if (bombas.Contains(item))
+                {
+                    bombasP.Add(item);
+                }
+            }
+
+            foreach (var item in jogoC)
+            {
+                if (bombas.Contains(item))
+                {
+                    bombasC.Add(item);
+                }
+
+            }
+            bool validade = false;
+            Peca pecaRemovida = linhaP[0];
+
+            if (bombasP.Count > 0 && bombasC.Count > 0)
+            {
+                if (byte.Parse(bombasP[bombasP.Count - 1]) > byte.Parse(bombasC[bombasC.Count - 1]))
+                {
+                    Console.Write("O jogador inicia com a peca: ");
+                    string ladoA = bombasP[bombasP.Count - 1].Substring(0, 1);
+                    string ladoB = bombasP[bombasP.Count - 1].Substring(1, 1);
+                    foreach (var item in linhaP)
+                    {
+                        if (item.valores == $"| {ladoA} | {ladoB} |")
+                        {
+                            Console.WriteLine(item.valores);
+                            validade = JogarPeca(item, "inicio");
+                            pecaRemovida = item;
+                            break;
+                        }
+                    }
+                    if (validade)
+                    {
+                        RemoverPeca("jogador", pecaRemovida);
+                    }
+                }
+                else
+                {
+                    Console.Write("O computador inicia com a peca: ");
+                    string ladoA = bombasC[bombasC.Count - 1].Substring(0, 1);
+                    string ladoB = bombasC[bombasC.Count - 1].Substring(1, 1);
+                    foreach (var item in linhaC)
+                    {
+                        if (item.valores == $"| {ladoA} | {ladoB} |")
+                        {
+                            Console.WriteLine(item.valores);
+                            validade = JogarPeca(item, "inicio");
+                            pecaRemovida = item;
+                            break;
+                        }
+                    }
+                    if (validade)
+                    {
+                        RemoverPeca("computador", pecaRemovida);
+                    }
+                }
+            }
+            else if (bombasP.Count > 0)
+            {
+                Console.Write("O jogador inicia com a peca: ");
+                string ladoA = bombasP[bombasP.Count - 1].Substring(0, 1);
+                string ladoB = bombasP[bombasP.Count - 1].Substring(1, 1);
+                foreach (var item in linhaP)
+                {
+                    if (item.valores == $"| {ladoA} | {ladoB} |")
+                    {
+                        Console.WriteLine(item.valores);
+                        validade = JogarPeca(item, "inicio");
+                        pecaRemovida = item;
+                        break;
+                    }
+                }
+                if (validade)
+                {
+                    RemoverPeca("jogador", pecaRemovida);
+                }
+            }
+            else if (bombasC.Count > 0)
+            {
+                Console.Write("O computador inicia com a peca: ");
+                string ladoA = bombasC[bombasC.Count - 1].Substring(0, 1);
+                string ladoB = bombasC[bombasC.Count - 1].Substring(1, 1);
+                foreach (var item in linhaC)
+                {
+                    if (item.valores == $"| {ladoA} | {ladoB} |")
+                    {
+                        Console.WriteLine(item.valores);
+                        validade = JogarPeca(item, "inicio");
+                        pecaRemovida = item;
+                        break;
+                    }
+                }
+                if (validade)
+                {
+                    RemoverPeca("computador", pecaRemovida);
+                }
+            }
+            else
+            {
+                byte maiorP = byte.Parse(jogoP[jogoP.Count - 1]);
+                byte maiorC = byte.Parse(jogoC[jogoC.Count - 1]);
+                if (maiorP > maiorC)
+                {
+                    Console.Write("O jogador inicia com a peca: ");
+                    string ladoA = jogoP[jogoP.Count - 1].Substring(0, 1);
+                    string ladoB = jogoP[jogoP.Count - 1].Substring(1, 1);
+                    foreach (var item in linhaP)
+                    {
+                        if (item.valores == $"| {ladoA} | {ladoB} |")
+                        {
+                            Console.WriteLine(item.valores);
+                            validade = JogarPeca(item, "inicio");
+                            pecaRemovida = item;
+                            break;
+                        }
+                    }
+                    if (validade)
+                    {
+                        RemoverPeca("jogador", pecaRemovida);
+                    }
+                }
+                else
+                {
+                    Console.Write("O computador inicia com a peca: ");
+                    string ladoA = jogoC[jogoC.Count - 1].Substring(0, 1);
+                    string ladoB = jogoC[jogoC.Count - 1].Substring(1, 1);
+                    foreach (var item in linhaC)
+                    {
+                        if (item.valores == $"| {ladoA} | {ladoB} |")
+                        {
+                            Console.WriteLine(item.valores);
+                            validade = JogarPeca(item, "inicio");
+                            pecaRemovida = item;
+                            break;
+                        }
+                    }
+                    if (validade)
+                    {
+                        RemoverPeca("computador", pecaRemovida);
+                    }
+                }
+            }
         }
     }
 }
