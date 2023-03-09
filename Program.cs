@@ -8,9 +8,8 @@ namespace domino_estrutura_de_dados
         static List<string> pecas = new List<string>() { "00", "01", "11", "02", "12", "22", "03", "13", "23", "33", "04", "14", "24", "34", "44", "05", "15", "25", "35", "45", "55", "06", "16", "26", "36", "46", "56", "66" };
         static void Main(string[] args)
         {
-            PecasJogadas mesa = new PecasJogadas();
+            LogicaJogo mesa = new LogicaJogo();
 
-            //gerar os jogos
             List<string> pecasP = NovoJogoP();
             List<string> pecasC = NovoJogoC(pecasP);
 
@@ -23,7 +22,7 @@ namespace domino_estrutura_de_dados
             for (int i = 0; i < pecasC.Count; i++)
             {
                 Peca peca = new Peca(pecasC[i]);
-                mesa.Adicionar(peca); //será a função para jogar uma peca
+                mesa.AtualizarJogo("computador", peca);
             }
 
             while (true)
@@ -35,6 +34,12 @@ namespace domino_estrutura_de_dados
                 Console.WriteLine("0 - SAIR DO JOGO");
                 while (true)
                 {
+                    List<string> lista = new List<string>();
+                    for (byte i = 0; i < mesa.linhaP.Count; i++)
+                    {
+                        lista.Add(mesa.linhaP[i].valores);
+                    }
+
                     Console.Write(": ");
                     string opc = Console.ReadLine();
 
@@ -50,9 +55,9 @@ namespace domino_estrutura_de_dados
                     {
                         Console.WriteLine();
                         Console.WriteLine("PEÇAS DO JOGADOR:");
-                        mesa.LinhaPecas(mesa.linhaP);
+                        mesa.LinhaPecas(lista);
                         Console.Write("    1");
-                        for (byte i = 2; i <= pecasP.Count; i++)
+                        for (byte i = 2; i <= mesa.linhaP.Count; i++)
                         {
                             Console.Write($"         {i}");
                         }
@@ -67,27 +72,36 @@ namespace domino_estrutura_de_dados
                         while (true)
                         {
                             bool escolhaCancelada = false;
-                            mesa.LinhaPecas(mesa.linhaP, -1);
+                            mesa.LinhaPecas(lista);
                             Console.Write(": ");
                             opc = Console.ReadLine();
                             if (opcoes.Contains(opc) && pecasP.Count >= int.Parse(opc.Substring(0, 1)))
                             {
                                 while (true)
                                 {
+                                    bool validade;
                                     string opc1 = mesa.PecaEscolhida(sbyte.Parse(opc.Substring(0, 1)));
                                     if (opc1 == "1" || opc1 == "2")
                                     {
                                         if (opc1 == "1")
                                         {
-                                            //if (mesa.adicionaInicio) {
+                                            validade = mesa.JogarPeca(mesa.linhaP[int.Parse(opc.Substring(0, 1))-1], "inicio");
                                         }
                                         else
                                         {
-                                            //if (mesa.adicionaFinal) {
+                                            validade = mesa.JogarPeca(mesa.linhaP[int.Parse(opc.Substring(0, 1))-1], "final");
                                         }
-                                        //mesa.RemoverPeca("jogador", pecasP[0]);
-                                        //pecasP.Remove(pecasP[0]);
-                                        break;
+
+                                        if (validade)
+                                        {
+                                            mesa.RemoverPeca("jogador", mesa.linhaP[int.Parse(opc.Substring(0, 1)) - 1]);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Peça inválida!");
+                                            break;
+                                        }
                                     }
                                     else if (opc1 == "0")
                                     {
