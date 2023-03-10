@@ -1,0 +1,15 @@
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/domino_estrutura_de_dados
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/domino_estrutura_de_dados.deps.json
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/domino_estrutura_de_dados.runtimeconfig.json
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/domino_estrutura_de_dados.dll
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/domino_estrutura_de_dados.pdb
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.csproj.AssemblyReference.cache
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.GeneratedMSBuildEditorConfig.editorconfig
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.AssemblyInfoInputs.cache
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.AssemblyInfo.cs
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.csproj.CoreCompileInputs.cache
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.dll
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/refint/domino_estrutura_de_dados.dll
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.pdb
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/domino_estrutura_de_dados.genruntimeconfig.cache
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/obj/Release/net6.0/ref/domino_estrutura_de_dados.dll

@@ -1,0 +1,5 @@
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/publish/domino_estrutura_de_dados
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/publish/domino_estrutura_de_dados.dll
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/publish/domino_estrutura_de_dados.deps.json
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/publish/domino_estrutura_de_dados.runtimeconfig.json
+/home/pescoco49/Documentos/GitHub/domino_estrutura_de_dados/bin/Release/net6.0/publish/domino_estrutura_de_dados.pdb
