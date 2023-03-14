@@ -50,14 +50,23 @@ namespace domino_estrutura_de_dados
             return validade;
         }
 
-        public void Linhas(int x, int y = -1)
+        public void Linhas(int w, int x = -1, int y = -1, int z = -1)
         {
-            for (int i = 0; i < x; i++)
+            for (int i = 0; i < w; i++)
             {
-                if (y > -1 && i == y)
+                if ((x > -1 && i == x) || (i == 0 && y > -1))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
+                if ((i == w-1 && (y > -1 && y < 8)))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else if ((i == w-1 && (z > -1)))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                } 
+
                 Console.Write($"{linha1} ");
                 Console.ResetColor();
             }
@@ -126,53 +135,62 @@ namespace domino_estrutura_de_dados
         public void PecasNaMesa()
         {
             List<string> x = pecasJogadas.Mostrar();
-
-            byte k, l;
+            byte k;
 
             if (x.Count > 0)
             {
                 if (x.Count <= 7)
                 {
-                    Linhas(x.Count);
+                    Linhas(x.Count, -1, x.Count);
                     k = (byte)x.Count;
                 }
                 else
                 {
-                    Linhas(7);
+                    Linhas(7, -1, x.Count);
                     k = 7;
                 }
 
                 Console.WriteLine();
                 for (byte i = 0; i < k; i++)
                 {
+                    if ((i == 0) || ((i == k-1) && (x.Count < 8)))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
                     Console.Write($"{x[i]} ");
+                    Console.ResetColor();
                 }
                 Console.WriteLine();
                 if (x.Count <= 7)
                 {
-                    Linhas(x.Count);
+                    Linhas(x.Count, -1, x.Count);
                 }
                 else
                 {
-                    Linhas(7);
+                    Linhas(7, -1, x.Count);
                 }
                 Console.WriteLine();
             }
-            if (x.Count > 8)
+            if (x.Count > 7)
             {
-                Linhas(x.Count - 7);
-                l = (byte)x.Count;
+                Linhas(x.Count - 7, -1, -1, x.Count);
+                k = (byte)x.Count;
 
                 Console.WriteLine();
-                for (byte i = 7; i < l; i++)
+                for (byte i = 7; i < k; i++)
                 {
+                    if (i == k - 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
                     Console.Write($"{x[i]} ");
+                    Console.ResetColor();
                 }
                 Console.WriteLine();
-                Linhas(x.Count - 7);
+
+                Linhas(x.Count - 7, -1, -1, x.Count);
                 Console.WriteLine();
             }
-
         }
 
         public void InicioJogo(List<string> jogoP, List<string> jogoC)
@@ -404,11 +422,11 @@ namespace domino_estrutura_de_dados
             Console.WriteLine($"\nPONTOS DO JOGADOR: {somaP}");
             Console.WriteLine($"PONTOS DO COMPUTADOR: {somaC}");
 
-            if (somaP > somaC)
+            if (somaP < somaC)
             {
                 Console.WriteLine("O JOGADOR VENCEU!");
             }
-            else if (somaC > somaP)
+            else if (somaC < somaP)
             {
                 Console.WriteLine("O COMPUTADOR VENCEU!");
             }
