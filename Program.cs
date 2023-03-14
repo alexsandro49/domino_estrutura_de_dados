@@ -28,12 +28,23 @@ namespace domino_estrutura_de_dados
             pecasP.Sort();
             pecasC.Sort();
             mesa.InicioJogo(pecasP, pecasC);
+            bool fim = false;
 
             while (true)
             {
+                mesa.JogadorTravado();
+                fim = mesa.FimDeJogo();
+
+                if (fim)
+                {
+                    Console.WriteLine("Jogo finalizado!");
+                    return;
+                }
+
                 Console.WriteLine("\n1 - OLHAR PEÇAS NA MESA");
                 Console.WriteLine("2 - SUAS PEÇAS");
                 Console.WriteLine("3 - JOGAR UMA PEÇA");
+                Console.WriteLine("4 - PULAR JOGADA");
                 Console.WriteLine("      ------");
                 Console.WriteLine("0 - SAIR DO JOGO");
                 while (true)
@@ -89,21 +100,23 @@ namespace domino_estrutura_de_dados
                                     {
                                         if (opc1 == "1")
                                         {
-                                            validade = mesa.JogarPeca(mesa.linhaP[int.Parse(opc.Substring(0, 1))-1], "inicio");
+                                            validade = mesa.JogarPeca("inicio", mesa.linhaP[int.Parse(opc.Substring(0, 1))-1]);
                                         }
                                         else
                                         {
-                                            validade = mesa.JogarPeca(mesa.linhaP[int.Parse(opc.Substring(0, 1))-1], "final");
+                                            validade = mesa.JogarPeca("final", mesa.linhaP[int.Parse(opc.Substring(0, 1)) - 1]);
                                         }
 
                                         if (validade)
                                         {
                                             mesa.RemoverPeca("jogador", mesa.linhaP[int.Parse(opc.Substring(0, 1)) - 1]);
+                                            mesa.JogadaComputador();
                                             break;
                                         }
                                         else
                                         {
                                             Console.WriteLine("Peça inválida!");
+                                            mesa.JogadaComputador();
                                             break;
                                         }
                                     }
@@ -130,11 +143,13 @@ namespace domino_estrutura_de_dados
                         }
                         Console.WriteLine();
                     }
+                    else if (opc == "4")
+                    {
+                        mesa.JogadaComputador();
+                    }
                     else if (opc == "0")
                     {
                         Console.WriteLine("Jogo finalizado!");
-                        System.Threading.Thread.Sleep(3000);
-                        Console.Clear();
                         return;
                     }
                     else

@@ -83,5 +83,47 @@ namespace domino_estrutura_de_dados
             }
             return lista;
         }
+
+        public bool Testar(Peca peca, string pos)
+        {
+            if (pos == "final")
+            {
+                Peca atual = cabeca;
+
+                while (atual.proximo != null)
+                {
+                    atual = atual.proximo;
+                }
+
+                if (atual.ladoB == peca.ladoA)
+                {
+                    return true;
+                }
+                else if (atual.ladoB == peca.ladoB)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (cabeca.ladoA == peca.ladoA)
+                {
+                    return true;
+                }
+                else if (cabeca.ladoA == peca.ladoB)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
-}
+    }
+

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace domino_estrutura_de_dados
 {
@@ -11,6 +10,9 @@ namespace domino_estrutura_de_dados
 
         public List<Peca> linhaP = new List<Peca>();
         public List<Peca> linhaC = new List<Peca>();
+
+        Random random = new Random();
+        bool computadorTravado = false;
 
         public void AtualizarJogo(string jogo, Peca peca)
         {
@@ -42,7 +44,7 @@ namespace domino_estrutura_de_dados
             }
         }
 
-        public bool JogarPeca(Peca peca, string opcao)
+        public bool JogarPeca(string opcao, Peca peca)
         {
             bool validade = pecasJogadas.Inserir(peca, opcao);
             return validade;
@@ -123,7 +125,54 @@ namespace domino_estrutura_de_dados
 
         public void PecasNaMesa()
         {
-            LinhaPecas(pecasJogadas.Mostrar());
+            List<string> x = pecasJogadas.Mostrar();
+
+            byte k, l;
+
+            if (x.Count > 0)
+            {
+                if (x.Count <= 7)
+                {
+                    Linhas(x.Count);
+                    k = (byte)x.Count;
+                }
+                else
+                {
+                    Linhas(7);
+                    k = 7;
+                }
+
+                Console.WriteLine();
+                for (byte i = 0; i < k; i++)
+                {
+                    Console.Write($"{x[i]} ");
+                }
+                Console.WriteLine();
+                if (x.Count <= 7)
+                {
+                    Linhas(x.Count);
+                }
+                else
+                {
+                    Linhas(7);
+                }
+                Console.WriteLine();
+            }
+            if (x.Count > 8)
+            {
+                Linhas(x.Count - 7);
+                l = (byte)x.Count;
+
+                Console.WriteLine();
+                for (byte i = 7; i < l; i++)
+                {
+                    Console.Write($"{x[i]} ");
+                }
+                Console.WriteLine();
+                Linhas(x.Count - 7);
+                Console.WriteLine();
+            }
+
         }
 
         public void InicioJogo(List<string> jogoP, List<string> jogoC)
@@ -163,7 +212,7 @@ namespace domino_estrutura_de_dados
                         if (item.valores == $"| {ladoA} | {ladoB} |")
                         {
                             Console.WriteLine(item.valores);
-                            validade = JogarPeca(item, "inicio");
+                            validade = JogarPeca("inicio", item);
                             pecaRemovida = item;
                             break;
                         }
@@ -171,6 +220,7 @@ namespace domino_estrutura_de_dados
                     if (validade)
                     {
                         RemoverPeca("jogador", pecaRemovida);
+                        JogadaComputador();
                     }
                 }
                 else
@@ -183,7 +233,7 @@ namespace domino_estrutura_de_dados
                         if (item.valores == $"| {ladoA} | {ladoB} |")
                         {
                             Console.WriteLine(item.valores);
-                            validade = JogarPeca(item, "inicio");
+                            validade = JogarPeca("inicio", item);
                             pecaRemovida = item;
                             break;
                         }
@@ -204,7 +254,7 @@ namespace domino_estrutura_de_dados
                     if (item.valores == $"| {ladoA} | {ladoB} |")
                     {
                         Console.WriteLine(item.valores);
-                        validade = JogarPeca(item, "inicio");
+                        validade = JogarPeca("inicio", item);
                         pecaRemovida = item;
                         break;
                     }
@@ -212,6 +262,7 @@ namespace domino_estrutura_de_dados
                 if (validade)
                 {
                     RemoverPeca("jogador", pecaRemovida);
+                    JogadaComputador();
                 }
             }
             else if (bombasC.Count > 0)
@@ -224,7 +275,7 @@ namespace domino_estrutura_de_dados
                     if (item.valores == $"| {ladoA} | {ladoB} |")
                     {
                         Console.WriteLine(item.valores);
-                        validade = JogarPeca(item, "inicio");
+                        validade = JogarPeca("inicio", item);
                         pecaRemovida = item;
                         break;
                     }
@@ -248,7 +299,7 @@ namespace domino_estrutura_de_dados
                         if (item.valores == $"| {ladoA} | {ladoB} |")
                         {
                             Console.WriteLine(item.valores);
-                            validade = JogarPeca(item, "inicio");
+                            validade = JogarPeca("inicio", item);
                             pecaRemovida = item;
                             break;
                         }
@@ -256,6 +307,7 @@ namespace domino_estrutura_de_dados
                     if (validade)
                     {
                         RemoverPeca("jogador", pecaRemovida);
+                        JogadaComputador();
                     }
                 }
                 else
@@ -268,7 +320,7 @@ namespace domino_estrutura_de_dados
                         if (item.valores == $"| {ladoA} | {ladoB} |")
                         {
                             Console.WriteLine(item.valores);
-                            validade = JogarPeca(item, "inicio");
+                            validade = JogarPeca("inicio", item);
                             pecaRemovida = item;
                             break;
                         }
@@ -278,6 +330,85 @@ namespace domino_estrutura_de_dados
                         RemoverPeca("computador", pecaRemovida);
                     }
                 }
+            }
+        }
+        public void JogadaComputador()
+        {
+            List<Peca> pecasComputador = new List<Peca>();
+            bool validade = true;
+
+            foreach (var item in linhaC)
+            {
+                if (pecasJogadas.Testar(item, "inicio") || pecasJogadas.Testar(item, "final"))
+                {
+                    pecasComputador.Add(item);
+                }
+            }
+
+            if (pecasComputador.Count > 0)
+            {
+                Peca pecaAleatoria = pecasComputador[random.Next(pecasComputador.Count)];
+                validade = JogarPeca("inicio", pecaAleatoria);
+                if (!validade)
+                {
+                    JogarPeca("final", pecaAleatoria);
+                }
+                RemoverPeca("computador", pecaAleatoria);
+                Console.WriteLine($"\nO computador jogou: {pecaAleatoria.valores}");
+            }
+            else
+            {
+                Console.WriteLine("O computador não tem peças compatíveis!");
+                computadorTravado = true;
+            }
+
+            return;
+        }
+
+        public bool JogadorTravado()
+        {
+            List<Peca> pecasJogador = new List<Peca>();
+
+            foreach (var item in linhaP)
+            {
+                if (pecasJogadas.Testar(item, "inicio") || pecasJogadas.Testar(item, "final"))
+                {
+                    pecasJogador.Add(item);
+                }
+            }
+
+            if (pecasJogador.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool FimDeJogo()
+        {
+            bool jogadorTravado = JogadorTravado();
+            if (linhaP.Count == 0)
+            {
+                Console.WriteLine("O jogador venceu a partida!");
+                return true;
+            }
+            else if (linhaC.Count == 0)
+            {
+                Console.WriteLine("O computador venceu a partida!");
+                return true;
+            }
+            else if (jogadorTravado && computadorTravado)
+            {
+                Console.WriteLine("Nenhum jogador possuí peças compatíveis!");
+                //ContarPontos();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
