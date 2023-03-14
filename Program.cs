@@ -33,7 +33,7 @@ namespace domino_estrutura_de_dados
             while (true)
             {
                 mesa.JogadorTravado();
-                fim = mesa.FimDeJogo();
+                fim = mesa.FimDeJogo(pecasP, pecasC);
 
                 if (fim)
                 {

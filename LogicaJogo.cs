@@ -387,7 +387,38 @@ namespace domino_estrutura_de_dados
             }
         }
 
-        public bool FimDeJogo()
+        public void ContarPontos(List<string> jogoP, List<string> jogoC)
+        {
+            int somaP = 0, somaC = 0;
+
+            foreach (var item in jogoP)
+            {
+                somaP += (int.Parse(item.Substring(0, 1)) + int.Parse(item.Substring(1, 1)));
+            }
+
+            foreach (var item in jogoC)
+            {
+                somaC += (int.Parse(item.Substring(0, 1)) + int.Parse(item.Substring(1, 1)));
+            }
+
+            Console.WriteLine($"\nPONTOS DO JOGADOR: {somaP}");
+            Console.WriteLine($"PONTOS DO COMPUTADOR: {somaC}");
+
+            if (somaP > somaC)
+            {
+                Console.WriteLine("O JOGADOR VENCEU!");
+            }
+            else if (somaC > somaP)
+            {
+                Console.WriteLine("O COMPUTADOR VENCEU!");
+            }
+            else
+            {
+                Console.WriteLine("EMPATE!");
+            }
+        }
+
+        public bool FimDeJogo(List<string> jogoP, List<string> jogoC)
         {
             bool jogadorTravado = JogadorTravado();
             if (linhaP.Count == 0)
@@ -403,7 +434,7 @@ namespace domino_estrutura_de_dados
             else if (jogadorTravado && computadorTravado)
             {
                 Console.WriteLine("Nenhum jogador possuí peças compatíveis!");
-                //ContarPontos();
+                ContarPontos(jogoP, jogoC);
                 return true;
             }
             else
