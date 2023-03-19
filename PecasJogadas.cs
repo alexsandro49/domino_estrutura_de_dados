@@ -5,9 +5,9 @@ namespace domino_estrutura_de_dados
 {
     internal class PecasJogadas
     {
-        public static Peca cabeca;
+        public Peca cabeca;
 
-        public bool Inserir(Peca peca, string pos)
+        public bool Inserir(string pos, Peca peca)
         {
             if (cabeca == null)
             {
@@ -70,20 +70,6 @@ namespace domino_estrutura_de_dados
             }
         }
 
-        public List<string> Mostrar()
-        {
-            Peca atual = cabeca;
-
-            List<string> lista = new List<string>();
-            while (atual != null)
-            {
-                atual.UpdatePeca();
-                lista.Add(atual.valores);
-                atual = atual.proximo;
-            }
-            return lista;
-        }
-
         public bool Testar(Peca peca, string pos)
         {
             if (pos == "final")
@@ -124,6 +110,20 @@ namespace domino_estrutura_de_dados
                 }
             }
         }
+
+        public List<string> Mostrar()
+        {
+            Peca atual = cabeca;
+
+            List<string> lista = new List<string>();
+            while (atual != null)
+            {
+                atual.UpdatePeca();
+                lista.Add(atual.valores);
+                atual = atual.proximo;
+            }
+            return lista;
+        }
     }
-    }
+}
 
