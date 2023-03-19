@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 
 namespace domino_estrutura_de_dados
 {
@@ -8,17 +7,16 @@ namespace domino_estrutura_de_dados
     {
         private string linha1 = "---------";
         private PecasJogadas pecasJogadas = new PecasJogadas();
-
         public List<Peca> pecasJogador = new List<Peca>();
         public List<Peca> pecasComputador = new List<Peca>();
+        bool computadorTravado = false;
+        Random random = new Random();
 
+        public List<string> opcoes = new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
+        List<string> bombas = new List<string> { "00", "11", "22", "33", "44", "55", "66" };
         List<string> pecasPossiveis = new List<string>() { "00", "01", "11", "02", "12", "22", "03",
             "13", "23", "33", "04", "14", "24", "34", "44", "05", "15", "25", "35", "45", "55", 
             "06", "16", "26", "36", "46", "56", "66" };
-        List<string> bombas = new List<string> { "00", "11", "22", "33", "44", "55", "66" };
-
-        Random random = new Random();
-        bool computadorTravado = false;
 
         public List<string> NovoJogoP()
         {
@@ -106,46 +104,40 @@ namespace domino_estrutura_de_dados
                 }
             }
 
-            bool validade = false;
-            Peca pecaRemovida = pecasJogador[0];
-
             void InicioJogoLocal(string opcao)
             {
                 List<Peca> opcPecas;
-                List<string> bombas;
+                List<string> bombasZ;
                 if (opcao == "jogador")
                 {
                     opcPecas = pecasJogador;
-                    bombas = bombasP;
+                    bombasZ = bombasP;
                 }
                 else
                 {
                     opcPecas = pecasComputador;
-                    bombas = bombasC;
+                    bombasZ = bombasC;
                 }
 
-                Console.Write($"O {opcao} inicia com a peca: ");
+                Console.Write($"O {opcao.ToUpper()} INICIA COM A PEÇA: ");
                 Console.ForegroundColor = ConsoleColor.Red;
-                string ladoA = bombas[bombas.Count - 1].Substring(0, 1);
-                string ladoB = bombas[bombas.Count - 1].Substring(1, 1);
+                string ladoA = bombasZ[bombasZ.Count - 1].Substring(0, 1);
+                string ladoB = bombasZ[bombasZ.Count - 1].Substring(1, 1);
                 foreach (var item in opcPecas)
                 {
                     if (item.valores == $"| {ladoA} | {ladoB} |")
                     {
                         Console.WriteLine(item.valores);
                         Console.ResetColor();
-                        validade = JogarPeca("inicio", item);
-                        pecaRemovida = item;
+                        JogarPeca("inicio", item);
+                        RemoverPeca(opcao, item);
                         break;
                     }
                 }
-                if (validade)
+                if (opcao == "jogador")
                 {
-                    RemoverPeca(opcao, pecaRemovida);
-                    if (opcao == "jogador")
-                    {
-                        JogadaComputador();
-                    }
+                    opcoes.RemoveAt(opcoes.Count - 1);
+                    JogadaComputador();
                 }
             }
 
@@ -207,15 +199,15 @@ namespace domino_estrutura_de_dados
                     pos = "final";
                 }
                 RemoverPeca("computador", pecaAleatoria);
-                Console.Write("\nO computador jogou: ");
+                Console.Write("\nO COMPUTADOR JOGOU: ");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write($"{pecaAleatoria.valores} ");
                 Console.ResetColor();
-                Console.WriteLine($"no {pos}");
+                Console.WriteLine($"NO {pos.ToUpper()}");
             }
             else
             {
-                Console.WriteLine("O computador não tem peças compatíveis!");
+                Console.WriteLine("\nO COMPUTADOR NÃO TEM JOGADAS POSSÍVEIS!");
                 computadorTravado = true;
             }
 
@@ -263,15 +255,15 @@ namespace domino_estrutura_de_dados
 
             if (somaP < somaC)
             {
-                Console.WriteLine("O JOGADOR VENCEU!");
+                Console.WriteLine("\nO JOGADOR VENCEU!");
             }
             else if (somaC < somaP)
             {
-                Console.WriteLine("O COMPUTADOR VENCEU!");
+                Console.WriteLine("\nO COMPUTADOR VENCEU!");
             }
             else
             {
-                Console.WriteLine("EMPATE!");
+                Console.WriteLine("\nEMPATE!");
             }
         }
 
@@ -280,17 +272,17 @@ namespace domino_estrutura_de_dados
             bool jogadorTravado = JogadorTravado();
             if (pecasJogador.Count == 0)
             {
-                Console.WriteLine("O jogador venceu a partida!");
+                Console.WriteLine("\nO JOGADOR VENCEU!");
                 return true;
             }
             else if (pecasComputador.Count == 0)
             {
-                Console.WriteLine("O computador venceu a partida!");
+                Console.WriteLine("\nO COMPUTADOR VENCEU!");
                 return true;
             }
             else if (jogadorTravado && computadorTravado)
             {
-                Console.WriteLine("Nenhum jogador possuí peças compatíveis!");
+                Console.WriteLine("\nJOGO FECHADO! NENHUMA JOGADA POSSÍVEL NA PARTIDA!");
                 ContarPontos();
                 return true;
             }
@@ -308,11 +300,11 @@ namespace domino_estrutura_de_dados
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
-                if ((i == w-1 && (y > -1 && y < 8)))
+                if ((i == w - 1 && (y > -1 && y < 8)))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
-                else if ((i == w-1 && (z > -1)))
+                else if ((i == w - 1 && (z > -1)))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 } 
@@ -403,7 +395,7 @@ namespace domino_estrutura_de_dados
                 Console.WriteLine();
                 for (byte i = 0; i < k; i++)
                 {
-                    if ((i == 0) || ((i == k-1) && (x.Count < 8)))
+                    if ((i == 0) || ((i == k - 1) && (x.Count < 8)))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                     }

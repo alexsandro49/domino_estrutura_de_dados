@@ -114,8 +114,8 @@ namespace domino_estrutura_de_dados
         public List<string> Mostrar()
         {
             Peca atual = cabeca;
-
             List<string> lista = new List<string>();
+
             while (atual != null)
             {
                 atual.UpdatePeca();

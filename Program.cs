@@ -35,7 +35,7 @@ namespace domino_estrutura_de_dados
                 fim = mesa.FimDeJogo();
                 if (fim)
                 {
-                    Console.WriteLine("Jogo finalizado!");
+                    Console.WriteLine("\nJOGO FINALIZADO!");
                     return;
                 }
                 Console.WriteLine("\n1 - OLHAR PEÇAS NA MESA");
@@ -57,37 +57,32 @@ namespace domino_estrutura_de_dados
 
                     if (opc == "1")
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("PEÇAS NA MESA:");
+                        Console.WriteLine("\nPEÇAS NA MESA:");
                         mesa.PecasNaMesa();
-                        Console.WriteLine();
                         break;
                     }
                     else if (opc == "2")
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("PEÇAS DO JOGADOR:");
+                        Console.WriteLine("\nPEÇAS DO JOGADOR:");
                         mesa.DesenharPecas(lista);
-                        Console.Write("    1");
-                        for (byte i = 2; i <= mesa.pecasJogador.Count; i++)
+                        Console.Write($"    {mesa.opcoes[0]}");
+                        for (byte i = 1; i <= mesa.opcoes.Count - 1; i++)
                         {
-                            Console.Write($"         {i}");
+                            Console.Write($"         {mesa.opcoes[i]}");
                         }
-                        Console.WriteLine("\n");
+                        Console.WriteLine();
                         break;
                     }
                     else if (opc == "3")
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("QUAL PEÇA JOGAR?");
-                        string[] opcoes = { "1", "2", "3", "4", "5", "6", "7" };
+                        Console.WriteLine("\nQUAL PEÇA JOGAR?");
                         while (true)
                         {
                             bool escolhaCancelada = false;
                             mesa.DesenharPecas(lista);
                             Console.Write(": ");
                             opc = Console.ReadLine();
-                            if (opcoes.Contains(opc) && valoresPecasJogador.Count >= int.Parse(opc.Substring(0, 1)))
+                            if (mesa.opcoes.Contains(opc) && valoresPecasJogador.Count >= int.Parse(opc.Substring(0, 1)))
                             {
                                 while (true)
                                 {
@@ -97,7 +92,7 @@ namespace domino_estrutura_de_dados
                                     {
                                         if (opc1 == "1")
                                         {
-                                            validade = mesa.JogarPeca("inicio", mesa.pecasJogador[int.Parse(opc.Substring(0, 1))-1]);
+                                            validade = mesa.JogarPeca("inicio", mesa.pecasJogador[int.Parse(opc.Substring(0, 1)) - 1]);
                                         }
                                         else
                                         {
@@ -106,6 +101,7 @@ namespace domino_estrutura_de_dados
 
                                         if (validade)
                                         {
+                                            mesa.opcoes.RemoveAt(mesa.opcoes.Count - 1);
                                             mesa.RemoverPeca("jogador", mesa.pecasJogador[int.Parse(opc.Substring(0, 1)) - 1]);
                                             mesa.JogadaComputador();
                                             break;
@@ -113,7 +109,7 @@ namespace domino_estrutura_de_dados
                                         else
                                         {
                                             Console.ForegroundColor = ConsoleColor.Red;
-                                            Console.WriteLine("\nPeça inválida!");
+                                            Console.WriteLine("\nPEÇA INVÁLIDA!");
                                             Console.ResetColor();
                                             mesa.JogadaComputador();
                                             break;
@@ -126,7 +122,7 @@ namespace domino_estrutura_de_dados
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Opção inválida. Por favor, tente novamente!");
+                                        Console.WriteLine("\nOPÇÃO INVÁLIDA! POR FAVOR, TENTE NOVAMENTE.");
                                     }
                                 }
                                 if (escolhaCancelada)
@@ -137,10 +133,9 @@ namespace domino_estrutura_de_dados
                             }
                             else
                             {
-                                Console.WriteLine("Opção inválida. Por favor, tente novamente!\n");
+                                Console.WriteLine("\nOPÇÃO INVÁLIDA! POR FAVOR, TENTE NOVAMENTE.\n");
                             }
                         }
-                        Console.WriteLine();
                     }
                     else if (opc == "4")
                     {
@@ -148,12 +143,12 @@ namespace domino_estrutura_de_dados
                     }
                     else if (opc == "0")
                     {
-                        Console.WriteLine("Jogo finalizado!");
+                        Console.WriteLine("\nJOGO FINALIZADO!");
                         return;
                     }
                     else
                     {
-                        Console.WriteLine("Opção inválida. Por favor, tente novamente!\n");
+                        Console.WriteLine("\nOPÇÃO INVÁLIDA! POR FAVOR, TENTE NOVAMENTE.");
                     }
                     break;
                 }
