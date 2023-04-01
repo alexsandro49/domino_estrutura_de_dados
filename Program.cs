@@ -39,9 +39,8 @@ namespace domino_estrutura_de_dados
                     return;
                 }
                 Console.WriteLine("\n1 - OLHAR PEÇAS NA MESA");
-                Console.WriteLine("2 - SUAS PEÇAS");
-                Console.WriteLine("3 - JOGAR UMA PEÇA");
-                Console.WriteLine("4 - PULAR JOGADA");
+                Console.WriteLine("2 - JOGAR UMA PEÇA");
+                Console.WriteLine("3 - PULAR JOGADA");
                 Console.WriteLine("      ------");
                 Console.WriteLine("0 - SAIR DO JOGO");
                 while (true)
@@ -63,23 +62,17 @@ namespace domino_estrutura_de_dados
                     }
                     else if (opc == "2")
                     {
-                        Console.WriteLine("\nPEÇAS DO JOGADOR:");
-                        mesa.DesenharPecas(lista);
-                        Console.Write($"    {mesa.opcoes[0]}");
-                        for (byte i = 1; i <= mesa.opcoes.Count - 1; i++)
-                        {
-                            Console.Write($"         {mesa.opcoes[i]}");
-                        }
-                        Console.WriteLine();
-                        break;
-                    }
-                    else if (opc == "3")
-                    {
                         Console.WriteLine("\nQUAL PEÇA JOGAR?");
                         while (true)
                         {
                             bool escolhaCancelada = false;
                             mesa.DesenharPecas(lista);
+                            Console.Write($"    {mesa.opcoes[0]}");
+                            for (byte i = 1; i <= mesa.opcoes.Count - 1; i++)
+                            {
+                                Console.Write($"         {mesa.opcoes[i]}");
+                            }
+                            Console.WriteLine();
                             Console.Write(": ");
                             opc = Console.ReadLine();
                             if (mesa.opcoes.Contains(opc) && valoresPecasJogador.Count >= int.Parse(opc.Substring(0, 1)))
@@ -137,7 +130,7 @@ namespace domino_estrutura_de_dados
                             }
                         }
                     }
-                    else if (opc == "4")
+                    else if (opc == "3")
                     {
                         mesa.JogadaComputador();
                     }
